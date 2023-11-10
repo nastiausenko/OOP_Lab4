@@ -17,9 +17,17 @@ public abstract class Shapes {
         this.root = root;
     }
 
-    protected void dashed(Shape currentShape){
-        currentShape.setStrokeLineCap(StrokeLineCap.BUTT);
-        currentShape.setStrokeLineJoin(StrokeLineJoin.MITER);
-        currentShape.getStrokeDashArray().addAll(5.0, 5.0);
+    protected void dashed(Shape... shapes) {
+        for (Shape currentShape: shapes) {
+            currentShape.setStrokeLineCap(StrokeLineCap.BUTT);
+            currentShape.setStrokeLineJoin(StrokeLineJoin.MITER);
+            currentShape.getStrokeDashArray().addAll(5.0, 5.0);
+        }
+    }
+
+    protected void clear(Shape... shapes) {
+        for (Shape currentShape: shapes) {
+            currentShape.getStrokeDashArray().clear();
+        }
     }
 }

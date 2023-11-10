@@ -1,6 +1,9 @@
 package shapes;
 
+import javafx.collections.ObservableList;
+import javafx.scene.Node;
 import javafx.scene.Scene;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Ellipse;
@@ -14,17 +17,7 @@ public class EllipseShape extends Shapes {
 
     @Override
     public void draw() {
-        root.setOnMousePressed(event -> {
-            currentEllipse = new Ellipse();
-            currentEllipse.setCenterX(event.getX() - currentEllipse.getCenterX());
-            currentEllipse.setCenterY(event.getY() - currentEllipse.getCenterY());
-            currentEllipse.setRadiusX(0);
-            currentEllipse.setRadiusY(0);
-            currentEllipse.setStroke(Color.BLACK);
-            currentEllipse.setStrokeWidth(1.5);
-            currentEllipse.setFill(null);
-            root.getChildren().add(currentEllipse);
-        });
+        root.setOnMousePressed(this::handle);
 
         root.setOnMouseDragged(event -> {
             if (currentEllipse != null) {
@@ -34,10 +27,26 @@ public class EllipseShape extends Shapes {
         });
 
         root.setOnMouseReleased(event -> {
-            currentEllipse.getStrokeDashArray().clear();
+            clear(currentEllipse);
             currentEllipse.setFill(Color.LIGHTGRAY);
-            currentEllipse = null;
         });
+    }
 
+    private void handle(MouseEvent event) {
+        currentEllipse = new Ellipse();
+        show(event, root.getChildren(), currentEllipse);
+    }
+
+    protected static void show(MouseEvent event, ObservableList<Node> children, Ellipse... ellipses) {
+        for (Ellipse currentEllipse: ellipses) {
+            currentEllipse.setCenterX(event.getX());
+            currentEllipse.setCenterY(event.getY());
+            currentEllipse.setRadiusX(0);
+            currentEllipse.setRadiusY(0);
+            currentEllipse.setStroke(Color.BLACK);
+            currentEllipse.setStrokeWidth(1.5);
+            currentEllipse.setFill(null);
+            children.add(currentEllipse);
+        }
     }
 }

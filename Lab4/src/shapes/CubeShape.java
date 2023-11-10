@@ -8,6 +8,9 @@ import javafx.scene.shape.Rectangle;
 public class CubeShape extends RectangleShape {
     private Rectangle frontRectangle, backRectangle;
     private Line line1, line2, line3, line4;
+    private double width, height;
+    private double frontX, frontY;
+    private double backX, backY;
 
     public CubeShape(Scene scene, Pane root) {
         super(scene, root);
@@ -23,60 +26,52 @@ public class CubeShape extends RectangleShape {
             line3 = new Line();
             line4 = new Line();
 
-            addRect(event, frontRectangle, root.getChildren());
-            addRect(event, backRectangle, root.getChildren());
-            LineShape.addLine(event, line1, root.getChildren());
-            LineShape.addLine(event, line2, root.getChildren());
-            LineShape.addLine(event, line3, root.getChildren());
-            LineShape.addLine(event, line4, root.getChildren());
+            show(event, root.getChildren(), frontRectangle, backRectangle);
+            LineShape.show(event, root.getChildren(), line1, line2, line3, line4);
 
             backRectangle.setX(event.getX() + frontRectangle.getWidth() / 2);
             backRectangle.setY(event.getY() - frontRectangle.getHeight() / 2);
         });
 
         root.setOnMouseDragged(event -> {
-            if (frontRectangle != null) {
-                frontRectangle.setWidth(event.getX() - frontRectangle.getX());
-                frontRectangle.setHeight(event.getY() - frontRectangle.getY());
+            if (event.getX() > frontRectangle.getX() && event.getY() > frontRectangle.getY()) {
+                width = frontRectangle.getWidth();
+                height = frontRectangle.getHeight();
+                frontX = frontRectangle.getX();
+                frontY = frontRectangle.getY();
+                backX = backRectangle.getX();
+                backY = backRectangle.getY();
 
-                dashed(frontRectangle);
-                dashed(backRectangle);
-                dashed(line1);
-                dashed(line2);
-                dashed(line3);
-                dashed(line4);
+                dragged(event, frontRectangle);
 
-                backRectangle.setX(frontRectangle.getX() + frontRectangle.getWidth() / 2);
-                backRectangle.setY(frontRectangle.getY() - frontRectangle.getHeight() / 2);
-                backRectangle.setWidth(frontRectangle.getWidth());
-                backRectangle.setHeight(frontRectangle.getHeight());
+                dashed(backRectangle, line1, line2, line3, line4);
 
-                line1.setEndX(backRectangle.getX());
-                line1.setEndY(backRectangle.getY());
+                backRectangle.setX(frontX + width / 2);
+                backRectangle.setY(frontY - height / 2);
+                backRectangle.setWidth(width);
+                backRectangle.setHeight(height);
 
-                line2.setStartY(frontRectangle.getY() + frontRectangle.getHeight());
-                line2.setEndX(backRectangle.getX());
-                line2.setEndY(backRectangle.getY() + backRectangle.getHeight());
+                setCoords(line1, frontX, frontY, backX, backY);
 
-                line3.setStartX(frontRectangle.getX() + frontRectangle.getWidth());
-                line3.setStartY(frontRectangle.getY());
-                line3.setEndX(backRectangle.getX() + backRectangle.getWidth());
-                line3.setEndY(backRectangle.getY());
+                setCoords(line2, frontX, frontY + height,
+                       backX, backY + height);
 
-                line4.setStartX(frontRectangle.getX() + frontRectangle.getWidth());
-                line4.setStartY(frontRectangle.getY() + frontRectangle.getHeight());
-                line4.setEndX(backRectangle.getX() + backRectangle.getWidth());
-                line4.setEndY(backRectangle.getY() + backRectangle.getHeight());
+                setCoords(line3, frontX + width, frontY,
+                        backX + width, backY);
+
+                setCoords(line4, frontX + width,
+                        frontY + height, backX + width,
+                        backY + height);
             }
         });
 
-        root.setOnMouseReleased(event -> {
-            frontRectangle.getStrokeDashArray().clear();
-            backRectangle.getStrokeDashArray().clear();
-            line1.getStrokeDashArray().clear();
-            line2.getStrokeDashArray().clear();
-            line3.getStrokeDashArray().clear();
-            line4.getStrokeDashArray().clear();
-        });
+        root.setOnMouseReleased(event -> clear(frontRectangle, backRectangle, line1, line2, line3, line4));
+    }
+
+    private void setCoords(Line line, double startX, double startY, double endX, double endY) {
+        line.setStartX(startX);
+        line.setStartY(startY);
+        line.setEndX(endX);
+        line.setEndY(endY);
     }
 }

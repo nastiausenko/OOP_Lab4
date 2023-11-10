@@ -19,39 +19,19 @@ public class LineOOShape extends LineShape {
     public void draw() {
         root.setOnMousePressed(event -> {
             currentLine = new Line();
-            addLine(event, currentLine, root.getChildren());
+            show(event, root.getChildren(), currentLine);
 
             ellipse1 = new Ellipse();
-            ellipse1.setCenterX(currentLine.getStartX());
-            ellipse1.setCenterY(currentLine.getStartY());
+            ellipse2 = new Ellipse();
+            EllipseShape.show(event, root.getChildren(), ellipse1, ellipse2);
+
             ellipse1.setRadiusX(radius);
             ellipse1.setRadiusY(radius);
             ellipse1.setFill(Color.WHITESMOKE);
-            ellipse1.setStroke(Color.BLACK);
-            ellipse1.setStrokeWidth(1.5);
-
-            ellipse2 = new Ellipse();
-            ellipse2.setCenterX(currentLine.getEndX());
-            ellipse2.setCenterY(currentLine.getEndY());
-            ellipse2.setRadiusX(radius);
-            ellipse2.setRadiusY(radius);
-            ellipse2.setStrokeWidth(1.5);
-            ellipse2.setFill(Color.WHITESMOKE);
-            ellipse2.setStroke(Color.BLACK);
-
-            root.getChildren().add(ellipse2);
-            root.getChildren().add(ellipse1);
         });
 
         root.setOnMouseDragged(event -> {
-            dashed(ellipse1);
-            dashed(ellipse2);
-            dashed(currentLine);
-
-            ellipse1.setCenterX(currentLine.getStartX());
-            ellipse1.setCenterY(currentLine.getStartY());
-            ellipse1.setRadiusX(radius);
-            ellipse1.setRadiusY(radius);
+            dashed(ellipse1, ellipse2, currentLine);
 
             currentLine.setEndX(event.getX());
             currentLine.setEndY(event.getY());
@@ -60,12 +40,9 @@ public class LineOOShape extends LineShape {
             ellipse2.setCenterY(currentLine.getEndY());
             ellipse2.setRadiusX(radius);
             ellipse2.setRadiusY(radius);
+            ellipse2.setFill(Color.WHITESMOKE);
         });
 
-        root.setOnMouseReleased(event -> {
-            currentLine.getStrokeDashArray().clear();
-            ellipse1.getStrokeDashArray().clear();
-            ellipse2.getStrokeDashArray().clear();
-        });
+        root.setOnMouseReleased(event -> clear(currentLine, ellipse1, ellipse2));
     }
 }

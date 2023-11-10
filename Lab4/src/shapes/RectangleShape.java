@@ -21,30 +21,36 @@ public class RectangleShape extends Shapes {
 
         root.setOnMouseDragged(event -> {
             if (currentRectangle != null) {
-                dashed(currentRectangle);
-                currentRectangle.setWidth(event.getX() - currentRectangle.getX());
-                currentRectangle.setHeight(event.getY() - currentRectangle.getY());
+                dragged(event, currentRectangle);
             }
         });
 
         root.setOnMouseReleased(event -> {
-            currentRectangle.getStrokeDashArray().clear();
+            clear(currentRectangle);
         });
+    }
+
+    protected void show(MouseEvent event, ObservableList<Node> children, Rectangle... rectangles) {
+        for (Rectangle currentRectangle: rectangles) {
+            currentRectangle.setX(event.getX());
+            currentRectangle.setY(event.getY());
+            currentRectangle.setWidth(0);
+            currentRectangle.setHeight(0);
+            currentRectangle.setStroke(Color.BLACK);
+            currentRectangle.setStrokeWidth(1.5);
+            currentRectangle.setFill(null);
+            children.add(currentRectangle);
+        }
     }
 
     private void handle(MouseEvent event) {
         currentRectangle = new Rectangle();
-        addRect(event, currentRectangle, root.getChildren());
+        show(event, root.getChildren(), currentRectangle);
     }
 
-    protected void addRect(MouseEvent event, Rectangle currentRectangle, ObservableList<Node> children) {
-        currentRectangle.setX(event.getX());
-        currentRectangle.setY(event.getY());
-        currentRectangle.setWidth(0);
-        currentRectangle.setHeight(0);
-        currentRectangle.setStroke(Color.BLACK);
-        currentRectangle.setStrokeWidth(1.5);
-        currentRectangle.setFill(null);
-        children.add(currentRectangle);
+    protected void dragged(MouseEvent event, Rectangle currentRectangle) {
+        dashed(currentRectangle);
+        currentRectangle.setWidth(event.getX() - currentRectangle.getX());
+        currentRectangle.setHeight(event.getY() - currentRectangle.getY());
     }
 }
