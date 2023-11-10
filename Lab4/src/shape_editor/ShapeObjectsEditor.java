@@ -25,4 +25,9 @@ public class ShapeObjectsEditor {
         Shape ellipseShape = new EllipseShape(scene, root);
         ellipseShape.draw();
     }
+
+    public void startCubeEditor(Scene scene, Pane root){
+        Shape cubeShape = new CubeShape(scene, root);
+        cubeShape.draw();
+    }
 }
