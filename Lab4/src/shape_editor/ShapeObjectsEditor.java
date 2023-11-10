@@ -30,4 +30,9 @@ public class ShapeObjectsEditor {
         Shapes cubeShape = new CubeShape(scene, root);
         cubeShape.draw();
     }
+
+    public void startLineOOEditor(Scene scene, Pane root){
+        Shapes lineOO = new LineOOShape(scene, root);
+        lineOO.draw();
+    }
 }

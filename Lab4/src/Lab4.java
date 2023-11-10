@@ -34,8 +34,10 @@ public class Lab4 extends Application {
         CheckMenuItem ellipse = new CheckMenuItem("Ellipse");
         CheckMenuItem rectangle = new CheckMenuItem("Rectangle");
         CheckMenuItem cube = new CheckMenuItem("Cube");
+        CheckMenuItem lineOO = new CheckMenuItem("LineOO");
 
-        shapes.getItems().addAll(point, line, ellipse, rectangle, cube);
+
+        shapes.getItems().addAll(point, line, ellipse, rectangle, cube, lineOO);
 
         ToolBar toolBar = new ToolBar();
         Button btnPoint = createToolbarButton("images/point.png", "Point");
@@ -66,6 +68,10 @@ public class Lab4 extends Application {
         });
         cube.setOnAction(actionEvent ->{
             shapeEditor.startCubeEditor(scene, drawingArea);
+            selection(ellipse, line, point, rectangle);
+        });
+        lineOO.setOnAction(actionEvent ->{
+            shapeEditor.startLineOOEditor(scene, drawingArea);
             selection(ellipse, line, point, rectangle);
         });
 
