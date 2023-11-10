@@ -5,7 +5,7 @@ import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Ellipse;
 
-public class EllipseShape extends Shape{
+public class EllipseShape extends Shapes {
     private Ellipse currentEllipse;
 
     public EllipseShape(Scene scene, Pane root) {

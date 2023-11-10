@@ -6,7 +6,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Ellipse;
 
 
-public class PointShape extends Shape {
+public class PointShape extends Shapes {
     private Ellipse currentPoint;
 
     public PointShape(Scene scene, Pane root) {

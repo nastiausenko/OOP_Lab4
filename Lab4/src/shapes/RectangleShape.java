@@ -8,7 +8,7 @@ import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 
-public class RectangleShape extends Shape {
+public class RectangleShape extends Shapes {
     private Rectangle currentRectangle = new Rectangle();
 
     public RectangleShape(Scene scene, Pane root) {
@@ -21,9 +21,14 @@ public class RectangleShape extends Shape {
 
         root.setOnMouseDragged(event -> {
             if (currentRectangle != null) {
+                dashed(currentRectangle);
                 currentRectangle.setWidth(event.getX() - currentRectangle.getX());
                 currentRectangle.setHeight(event.getY() - currentRectangle.getY());
             }
+        });
+
+        root.setOnMouseReleased(event -> {
+            currentRectangle.getStrokeDashArray().clear();
         });
     }
 
@@ -32,7 +37,7 @@ public class RectangleShape extends Shape {
         addRect(event, currentRectangle, root.getChildren());
     }
 
-    protected static void addRect(MouseEvent event, Rectangle currentRectangle, ObservableList<Node> children) {
+    protected void addRect(MouseEvent event, Rectangle currentRectangle, ObservableList<Node> children) {
         currentRectangle.setX(event.getX());
         currentRectangle.setY(event.getY());
         currentRectangle.setWidth(0);
