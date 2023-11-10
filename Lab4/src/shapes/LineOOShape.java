@@ -60,8 +60,6 @@ public class LineOOShape extends LineShape {
             ellipse2.setCenterY(currentLine.getEndY());
             ellipse2.setRadiusX(radius);
             ellipse2.setRadiusY(radius);
-
-
         });
 
         root.setOnMouseReleased(event -> {
