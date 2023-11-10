@@ -16,14 +16,7 @@ public class CubeShape extends Shape {
     public void draw() {
         root.setOnMousePressed(event -> {
             frontRectangle = new Rectangle();
-            frontRectangle.setX(event.getX());
-            frontRectangle.setY(event.getY());
-            frontRectangle.setWidth(0);
-            frontRectangle.setHeight(0);
-            frontRectangle.setStroke(Color.BLACK);
-            frontRectangle.setStrokeWidth(1.5);
-            frontRectangle.setFill(null);
-            root.getChildren().add(frontRectangle);
+            RectangleShape.addRect(event, frontRectangle, root.getChildren());
 
             backRectangle = new Rectangle();
             backRectangle.setX(event.getX() + frontRectangle.getWidth()/2);
@@ -46,11 +39,6 @@ public class CubeShape extends Shape {
                 backRectangle.setWidth(frontRectangle.getWidth());
                 backRectangle.setHeight(frontRectangle.getHeight());
             }
-        });
-
-        root.setOnMouseReleased(event -> {
-            frontRectangle.getStrokeDashArray().clear();
-            frontRectangle = null;
         });
     }
 }
