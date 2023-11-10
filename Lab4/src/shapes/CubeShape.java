@@ -26,8 +26,8 @@ public class CubeShape extends Shape {
             root.getChildren().add(frontRectangle);
 
             backRectangle = new Rectangle();
-            backRectangle.setX(event.getX() + 50);
-            backRectangle.setY(event.getY() - 50);
+            backRectangle.setX(event.getX() + frontRectangle.getWidth()/2);
+            backRectangle.setY(event.getY() - frontRectangle.getHeight()/2);
             backRectangle.setWidth(0);
             backRectangle.setHeight(0);
             backRectangle.setStroke(Color.BLACK);
@@ -41,8 +41,8 @@ public class CubeShape extends Shape {
                 frontRectangle.setWidth(event.getX() - frontRectangle.getX());
                 frontRectangle.setHeight(event.getY() - frontRectangle.getY());
 
-                backRectangle.setX(frontRectangle.getX() + 50);
-                backRectangle.setY(frontRectangle.getY() - 50);
+                backRectangle.setX(frontRectangle.getX() + frontRectangle.getWidth()/2);
+                backRectangle.setY(frontRectangle.getY() - frontRectangle.getHeight()/2);
                 backRectangle.setWidth(frontRectangle.getWidth());
                 backRectangle.setHeight(frontRectangle.getHeight());
             }
