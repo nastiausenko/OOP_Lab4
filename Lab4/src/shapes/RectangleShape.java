@@ -34,7 +34,6 @@ public class RectangleShape extends Shape {
         });
 
         root.setOnMouseReleased(event -> {
-            currentRectangle.getStrokeDashArray().clear();
             currentRectangle = null;
         });
     }
