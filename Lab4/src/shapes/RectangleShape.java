@@ -26,7 +26,9 @@ public class RectangleShape extends Shapes {
         });
 
         root.setOnMouseReleased(event -> {
-            clear(currentRectangle);
+                currentRectangle.setFill(Color.LIGHTGOLDENRODYELLOW);
+                clear(currentRectangle);
+                currentRectangle = null;
         });
     }
 

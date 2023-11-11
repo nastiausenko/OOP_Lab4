@@ -25,6 +25,8 @@ public class LineShape extends Shapes {
                 currentLine.setEndY(event.getY());
             }
         });
+
+        root.setOnMouseReleased(event -> currentLine = null);
     }
 
     private void handle(MouseEvent event) {
@@ -32,7 +34,7 @@ public class LineShape extends Shapes {
         show(event, root.getChildren(), currentLine);
     }
 
-    protected static void show(MouseEvent event, ObservableList<Node> children, Line... lines) {
+    static void show(MouseEvent event, ObservableList<Node> children, Line... lines) {
         for (Line currentLine: lines) {
             currentLine.setStartX(event.getX());
             currentLine.setStartY(event.getY());

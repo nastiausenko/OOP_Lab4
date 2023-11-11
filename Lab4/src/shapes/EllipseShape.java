@@ -21,6 +21,7 @@ public class EllipseShape extends Shapes {
 
         root.setOnMouseDragged(event -> {
             if (currentEllipse != null) {
+                dashed(currentEllipse);
                 currentEllipse.setRadiusX(event.getX() - currentEllipse.getCenterX());
                 currentEllipse.setRadiusY(event.getY() - currentEllipse.getCenterY());
             }
@@ -28,7 +29,8 @@ public class EllipseShape extends Shapes {
 
         root.setOnMouseReleased(event -> {
             clear(currentEllipse);
-            currentEllipse.setFill(Color.LIGHTGRAY);
+            currentEllipse.setFill(Color.LIGHTSKYBLUE);
+            currentEllipse = null;
         });
     }
 
@@ -37,7 +39,7 @@ public class EllipseShape extends Shapes {
         show(event, root.getChildren(), currentEllipse);
     }
 
-    protected static void show(MouseEvent event, ObservableList<Node> children, Ellipse... ellipses) {
+     static void show(MouseEvent event, ObservableList<Node> children, Ellipse... ellipses) {
         for (Ellipse currentEllipse: ellipses) {
             currentEllipse.setCenterX(event.getX());
             currentEllipse.setCenterY(event.getY());

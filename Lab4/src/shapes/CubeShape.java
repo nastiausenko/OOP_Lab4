@@ -34,38 +34,48 @@ public class CubeShape extends RectangleShape {
         });
 
         root.setOnMouseDragged(event -> {
-            if (event.getX() > frontRectangle.getX() && event.getY() > frontRectangle.getY()) {
-                width = frontRectangle.getWidth();
-                height = frontRectangle.getHeight();
-                frontX = frontRectangle.getX();
-                frontY = frontRectangle.getY();
-                backX = backRectangle.getX();
-                backY = backRectangle.getY();
+            if (frontRectangle != null) {
+                if (event.getX() > frontRectangle.getX() && event.getY() > frontRectangle.getY()) {
+                    width = frontRectangle.getWidth();
+                    height = frontRectangle.getHeight();
+                    frontX = frontRectangle.getX();
+                    frontY = frontRectangle.getY();
+                    backX = backRectangle.getX();
+                    backY = backRectangle.getY();
 
-                dragged(event, frontRectangle);
+                    dragged(event, frontRectangle);
 
-                dashed(backRectangle, line1, line2, line3, line4);
+                    dashed(backRectangle, line1, line2, line3, line4);
 
-                backRectangle.setX(frontX + width / 2);
-                backRectangle.setY(frontY - height / 2);
-                backRectangle.setWidth(width);
-                backRectangle.setHeight(height);
+                    backRectangle.setX(frontX + width / 2);
+                    backRectangle.setY(frontY - height / 2);
+                    backRectangle.setWidth(width);
+                    backRectangle.setHeight(height);
 
-                setCoords(line1, frontX, frontY, backX, backY);
+                    setCoords(line1, frontX, frontY, backX, backY);
 
-                setCoords(line2, frontX, frontY + height,
-                       backX, backY + height);
+                    setCoords(line2, frontX, frontY + height,
+                            backX, backY + height);
 
-                setCoords(line3, frontX + width, frontY,
-                        backX + width, backY);
+                    setCoords(line3, frontX + width, frontY,
+                            backX + width, backY);
 
-                setCoords(line4, frontX + width,
-                        frontY + height, backX + width,
-                        backY + height);
+                    setCoords(line4, frontX + width,
+                            frontY + height, backX + width,
+                            backY + height);
+                }
             }
         });
 
-        root.setOnMouseReleased(event -> clear(frontRectangle, backRectangle, line1, line2, line3, line4));
+        root.setOnMouseReleased(event -> {
+            clear(frontRectangle, backRectangle, line1, line2, line3, line4);
+            backRectangle = null;
+            frontRectangle = null;
+            line1 = null;
+            line3 = null;
+            line2 = null;
+            line4 = null;
+        });
     }
 
     private void setCoords(Line line, double startX, double startY, double endX, double endY) {

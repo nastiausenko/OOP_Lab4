@@ -31,18 +31,25 @@ public class LineOOShape extends LineShape {
         });
 
         root.setOnMouseDragged(event -> {
-            dashed(ellipse1, ellipse2, currentLine);
+            if (currentLine != null) {
+                dashed(ellipse1, ellipse2, currentLine);
 
-            currentLine.setEndX(event.getX());
-            currentLine.setEndY(event.getY());
+                currentLine.setEndX(event.getX());
+                currentLine.setEndY(event.getY());
 
-            ellipse2.setCenterX(currentLine.getEndX());
-            ellipse2.setCenterY(currentLine.getEndY());
-            ellipse2.setRadiusX(radius);
-            ellipse2.setRadiusY(radius);
-            ellipse2.setFill(Color.WHITESMOKE);
+                ellipse2.setCenterX(currentLine.getEndX());
+                ellipse2.setCenterY(currentLine.getEndY());
+                ellipse2.setRadiusX(radius);
+                ellipse2.setRadiusY(radius);
+                ellipse2.setFill(Color.WHITESMOKE);
+            }
         });
 
-        root.setOnMouseReleased(event -> clear(currentLine, ellipse1, ellipse2));
+        root.setOnMouseReleased(event -> {
+            clear(currentLine, ellipse1, ellipse2);
+            ellipse1 = null;
+            ellipse2 = null;
+            currentLine = null;
+        });
     }
 }

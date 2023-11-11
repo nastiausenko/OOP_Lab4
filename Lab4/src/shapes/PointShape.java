@@ -16,13 +16,13 @@ public class PointShape extends Shapes {
     @Override
     public void draw() {
         root.setOnMousePressed(event -> {
-            currentPoint = new Ellipse();
-            currentPoint.setCenterX(event.getX());
-            currentPoint.setCenterY(event.getY());
-            currentPoint.setRadiusX(5);
-            currentPoint.setRadiusY(5);
-            currentPoint.setFill(Color.BLACK);
-            root.getChildren().add(currentPoint);
+                currentPoint = new Ellipse();
+                currentPoint.setCenterX(event.getX());
+                currentPoint.setCenterY(event.getY());
+                currentPoint.setRadiusX(5);
+                currentPoint.setRadiusY(5);
+                currentPoint.setFill(Color.BLACK);
+                root.getChildren().add(currentPoint);
         });
 
         root.setOnMouseReleased(event -> currentPoint = null);
