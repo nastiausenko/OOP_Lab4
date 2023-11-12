@@ -60,7 +60,7 @@ public class CubeShape extends RectangleShape implements Drawable {
 
                     setCoords(line3, frontX + width, frontY, backX + width, backY);
 
-                    setCoords(line4, frontX + width,frontY + height, backX + width,backY + height);
+                    setCoords(line4, frontX + width, frontY + height, backX + width,backY + height);
                 }
             }
         });
