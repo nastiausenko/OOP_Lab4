@@ -5,8 +5,9 @@ import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Ellipse;
 import javafx.scene.shape.Line;
+import shapes.interfaces.Drawable;
 
-public class LineOOShape extends LineShape {
+public class LineOOShape extends LineShape implements Drawable {
     private Line currentLine;
     private Ellipse ellipse1, ellipse2;
     private final int radius = 10;
@@ -23,7 +24,7 @@ public class LineOOShape extends LineShape {
 
             ellipse1 = new Ellipse();
             ellipse2 = new Ellipse();
-            EllipseShape.show(event, root.getChildren(), ellipse1, ellipse2);
+            show(event, root.getChildren(), ellipse1, ellipse2);
 
             ellipse1.setRadiusX(radius);
             ellipse1.setRadiusY(radius);
@@ -33,9 +34,7 @@ public class LineOOShape extends LineShape {
         root.setOnMouseDragged(event -> {
             if (currentLine != null) {
                 dashed(ellipse1, ellipse2, currentLine);
-
-                currentLine.setEndX(event.getX());
-                currentLine.setEndY(event.getY());
+                dragged(event, currentLine);
 
                 ellipse2.setCenterX(currentLine.getEndX());
                 ellipse2.setCenterY(currentLine.getEndY());

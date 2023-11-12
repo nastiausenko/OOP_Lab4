@@ -4,8 +4,10 @@ import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
 import javafx.scene.shape.Line;
 import javafx.scene.shape.Rectangle;
+import shapes.interfaces.Drawable;
 
-public class CubeShape extends RectangleShape {
+
+public class CubeShape extends RectangleShape implements Drawable {
     private Rectangle frontRectangle, backRectangle;
     private Line line1, line2, line3, line4;
     private double width, height;
@@ -27,10 +29,10 @@ public class CubeShape extends RectangleShape {
             line4 = new Line();
 
             show(event, root.getChildren(), frontRectangle, backRectangle);
-            LineShape.show(event, root.getChildren(), line1, line2, line3, line4);
+            show(event, root.getChildren(), line1, line2, line3, line4);
 
-            backRectangle.setX(event.getX() + frontRectangle.getWidth() / 2);
-            backRectangle.setY(event.getY() - frontRectangle.getHeight() / 2);
+            backRectangle.setX(event.getX() + 50);
+            backRectangle.setY(event.getY() - 50);
         });
 
         root.setOnMouseDragged(event -> {
@@ -47,22 +49,18 @@ public class CubeShape extends RectangleShape {
 
                     dashed(backRectangle, line1, line2, line3, line4);
 
-                    backRectangle.setX(frontX + width / 2);
-                    backRectangle.setY(frontY - height / 2);
+                    backRectangle.setX(frontX + 50);
+                    backRectangle.setY(frontY - 50);
                     backRectangle.setWidth(width);
                     backRectangle.setHeight(height);
 
                     setCoords(line1, frontX, frontY, backX, backY);
 
-                    setCoords(line2, frontX, frontY + height,
-                            backX, backY + height);
+                    setCoords(line2, frontX, frontY + height, backX, backY + height);
 
-                    setCoords(line3, frontX + width, frontY,
-                            backX + width, backY);
+                    setCoords(line3, frontX + width, frontY, backX + width, backY);
 
-                    setCoords(line4, frontX + width,
-                            frontY + height, backX + width,
-                            backY + height);
+                    setCoords(line4, frontX + width,frontY + height, backX + width,backY + height);
                 }
             }
         });

@@ -1,14 +1,13 @@
 package shapes;
 
-import javafx.collections.ObservableList;
-import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Ellipse;
+import shapes.interfaces.Drawable;
 
-public class EllipseShape extends Shapes {
+public class EllipseShape extends Shapes implements Drawable {
     private Ellipse currentEllipse;
 
     public EllipseShape(Scene scene, Pane root) {
@@ -19,13 +18,7 @@ public class EllipseShape extends Shapes {
     public void draw() {
         root.setOnMousePressed(this::handle);
 
-        root.setOnMouseDragged(event -> {
-            if (currentEllipse != null) {
-                dashed(currentEllipse);
-                currentEllipse.setRadiusX(event.getX() - currentEllipse.getCenterX());
-                currentEllipse.setRadiusY(event.getY() - currentEllipse.getCenterY());
-            }
-        });
+        root.setOnMouseDragged(event -> dragged(event, currentEllipse));
 
         root.setOnMouseReleased(event -> {
             clear(currentEllipse);
@@ -39,16 +32,12 @@ public class EllipseShape extends Shapes {
         show(event, root.getChildren(), currentEllipse);
     }
 
-     static void show(MouseEvent event, ObservableList<Node> children, Ellipse... ellipses) {
-        for (Ellipse currentEllipse: ellipses) {
-            currentEllipse.setCenterX(event.getX());
-            currentEllipse.setCenterY(event.getY());
-            currentEllipse.setRadiusX(0);
-            currentEllipse.setRadiusY(0);
-            currentEllipse.setStroke(Color.BLACK);
-            currentEllipse.setStrokeWidth(1.5);
-            currentEllipse.setFill(null);
-            children.add(currentEllipse);
+    private void dragged(MouseEvent event, Ellipse currentEllipse) {
+        if (currentEllipse != null) {
+            dashed(currentEllipse);
+            currentEllipse.setRadiusX(event.getX() - currentEllipse.getCenterX());
+            currentEllipse.setRadiusY(event.getY() - currentEllipse.getCenterY());
         }
     }
 }
+

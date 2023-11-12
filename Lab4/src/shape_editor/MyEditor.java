@@ -4,7 +4,7 @@ import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
 import shapes.*;
 
-public class ShapeObjectsEditor {
+public class MyEditor {
 
     public void startRectangleEditor(Scene scene, Pane root) {
         Shapes rectangle = new RectangleShape(scene, root);
@@ -12,7 +12,7 @@ public class ShapeObjectsEditor {
     }
 
     public void startLineEditor(Scene scene, Pane root){
-        Shapes line= new LineShape(scene, root);
+        Shapes line = new LineShape(scene, root);
         line.draw();
     }
 

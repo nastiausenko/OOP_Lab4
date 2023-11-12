@@ -1,14 +1,12 @@
 package shapes;
 
-import javafx.collections.ObservableList;
-import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
-import javafx.scene.paint.Color;
 import javafx.scene.shape.Line;
+import shapes.interfaces.Drawable;
 
-public class LineShape extends Shapes {
+public class LineShape extends Shapes implements Drawable {
 
     private Line currentLine;
     public LineShape(Scene scene, Pane root) {
@@ -19,12 +17,7 @@ public class LineShape extends Shapes {
     public void draw() {
         root.setOnMousePressed(this::handle);
 
-        root.setOnMouseDragged(event -> {
-            if (currentLine != null) {
-                currentLine.setEndX(event.getX());
-                currentLine.setEndY(event.getY());
-            }
-        });
+        root.setOnMouseDragged(event -> dragged(event, currentLine));
 
         root.setOnMouseReleased(event -> currentLine = null);
     }
@@ -34,15 +27,10 @@ public class LineShape extends Shapes {
         show(event, root.getChildren(), currentLine);
     }
 
-    static void show(MouseEvent event, ObservableList<Node> children, Line... lines) {
-        for (Line currentLine: lines) {
-            currentLine.setStartX(event.getX());
-            currentLine.setStartY(event.getY());
+    protected void dragged(MouseEvent event, Line currentLine) {
+        if (currentLine != null) {
             currentLine.setEndX(event.getX());
             currentLine.setEndY(event.getY());
-            currentLine.setStroke(Color.BLACK);
-            currentLine.setStrokeWidth(1.5);
-            children.add(currentLine);
         }
     }
 }

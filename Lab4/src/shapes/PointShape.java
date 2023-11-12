@@ -1,6 +1,9 @@
 package shapes;
 
+import javafx.collections.ObservableList;
+import javafx.scene.Node;
 import javafx.scene.Scene;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Ellipse;
@@ -15,16 +18,23 @@ public class PointShape extends Shapes {
 
     @Override
     public void draw() {
-        root.setOnMousePressed(event -> {
-                currentPoint = new Ellipse();
-                currentPoint.setCenterX(event.getX());
-                currentPoint.setCenterY(event.getY());
-                currentPoint.setRadiusX(5);
-                currentPoint.setRadiusY(5);
-                currentPoint.setFill(Color.BLACK);
-                root.getChildren().add(currentPoint);
-        });
+        root.setOnMousePressed(event -> root.setOnMousePressed(this::handle));
 
         root.setOnMouseReleased(event -> currentPoint = null);
+    }
+
+    private void show(MouseEvent event, ObservableList<Node> children, Ellipse... ellipses) {
+        for (Ellipse currentPoint: ellipses) {
+            currentPoint.setCenterX(event.getX());
+            currentPoint.setCenterY(event.getY());
+            currentPoint.setRadiusX(5);
+            currentPoint.setRadiusY(5);
+            currentPoint.setFill(Color.BLACK);
+            children.add(currentPoint);
+        }
+    }
+    private void handle(MouseEvent event) {
+        currentPoint = new Ellipse();
+        show(event, root.getChildren(), currentPoint);
     }
 }

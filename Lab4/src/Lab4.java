@@ -7,7 +7,7 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
-import shape_editor.ShapeObjectsEditor;
+import shape_editor.MyEditor;
 
 import java.util.Objects;
 
@@ -24,7 +24,7 @@ public class Lab4 extends Application {
         layout.setCenter(drawingArea);
         Scene scene = new Scene(layout, 700, 500);
 
-        ShapeObjectsEditor shapeEditor = new ShapeObjectsEditor();
+        MyEditor shapeEditor = new MyEditor();
 
         MenuBar menuBar = createMenuBar(shapeEditor, scene, drawingArea);
         ToolBar toolBar = createToolBar(shapeEditor, scene, drawingArea);
@@ -37,7 +37,7 @@ public class Lab4 extends Application {
         stage.show();
     }
 
-    private MenuBar createMenuBar(ShapeObjectsEditor shapeEditor, Scene scene, Pane drawingArea) {
+    private MenuBar createMenuBar(MyEditor shapeEditor, Scene scene, Pane drawingArea) {
         MenuBar menuBar = new MenuBar();
 
         Menu file = new Menu("File");
@@ -49,7 +49,7 @@ public class Lab4 extends Application {
         return menuBar;
     }
 
-    private Menu createShapesMenu(ShapeObjectsEditor shapeEditor, Scene scene, Pane drawingArea) {
+    private Menu createShapesMenu(MyEditor shapeEditor, Scene scene, Pane drawingArea) {
         Menu shapes = new Menu("Shapes");
 
         MenuItem point = createMenuItem("Point", () -> shapeEditor.startPointEditor(scene, drawingArea));
@@ -70,16 +70,22 @@ public class Lab4 extends Application {
         return menuItem;
     }
 
-    private ToolBar createToolBar(ShapeObjectsEditor shapeEditor, Scene scene, Pane drawingArea) {
+    private ToolBar createToolBar(MyEditor shapeEditor, Scene scene, Pane drawingArea) {
         ToolBar toolBar = new ToolBar();
 
         toolBar.getItems().addAll(
-                createToolbarButton("images/point.png", "Point", () -> shapeEditor.startPointEditor(scene, drawingArea)),
-                createToolbarButton("images/line.png", "Line", () -> shapeEditor.startLineEditor(scene, drawingArea)),
-                createToolbarButton("images/ellipse.png", "Ellipse", () -> shapeEditor.startEllipseEditor(scene, drawingArea)),
-                createToolbarButton("images/rectangle.png", "Rectangle", () -> shapeEditor.startRectangleEditor(scene, drawingArea)),
-                createToolbarButton("images/cube.png", "Cube", () -> shapeEditor.startCubeEditor(scene, drawingArea)),
-                createToolbarButton("images/lineOO.png", "LineOO", () -> shapeEditor.startLineOOEditor(scene, drawingArea))
+                createToolbarButton("images/point.png", "Point",
+                        () -> shapeEditor.startPointEditor(scene, drawingArea)),
+                createToolbarButton("images/line.png", "Line",
+                        () -> shapeEditor.startLineEditor(scene, drawingArea)),
+                createToolbarButton("images/ellipse.png", "Ellipse",
+                        () -> shapeEditor.startEllipseEditor(scene, drawingArea)),
+                createToolbarButton("images/rectangle.png", "Rectangle",
+                        () -> shapeEditor.startRectangleEditor(scene, drawingArea)),
+                createToolbarButton("images/cube.png", "Cube",
+                        () -> shapeEditor.startCubeEditor(scene, drawingArea)),
+                createToolbarButton("images/lineOO.png", "LineOO",
+                        () -> shapeEditor.startLineOOEditor(scene, drawingArea))
         );
 
         return toolBar;
