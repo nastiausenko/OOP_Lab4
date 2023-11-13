@@ -12,11 +12,6 @@ import shape_editor.MyEditor;
 import java.util.Objects;
 
 public class Lab4 extends Application {
-
-    public static void main(String[] args) {
-        launch();
-    }
-
     @Override
     public void start(Stage stage) {
         BorderPane layout = new BorderPane();
@@ -26,72 +21,83 @@ public class Lab4 extends Application {
 
         MyEditor shapeEditor = new MyEditor();
 
-        MenuBar menuBar = createMenuBar(shapeEditor, scene, drawingArea);
-        ToolBar toolBar = createToolBar(shapeEditor, scene, drawingArea);
+        MenuBar menuBar = new MenuBar();
+        drawingArea.setMaxHeight(scene.getHeight() - menuBar.getHeight());
+        Menu file = new Menu("File");
+        Menu shapes = new Menu("Shapes");
+        Menu help = new Menu("Help");
+
+        menuBar.getMenus().addAll(file, shapes, help);
+
+        CheckMenuItem point = new CheckMenuItem("Point");
+        CheckMenuItem line = new CheckMenuItem("Line");
+        CheckMenuItem ellipse = new CheckMenuItem("Ellipse");
+        CheckMenuItem rectangle = new CheckMenuItem("Rectangle");
+        CheckMenuItem cube = new CheckMenuItem("Cube");
+        CheckMenuItem lineOO = new CheckMenuItem("LineOO");
+
+
+        shapes.getItems().addAll(point, line, ellipse, rectangle, cube, lineOO);
+
+        ToolBar toolBar = new ToolBar();
+        Button btnPoint = createToolbarButton("images/point.png", "Point");
+        Button btnLine = createToolbarButton("images/line.png", "Line");
+        Button btnEllipse = createToolbarButton("images/ellipse.png", "Ellipse");
+        Button btnRectangle = createToolbarButton("images/rectangle.png", "Rectangle");
+        Button btnCube = createToolbarButton("images/cube.png", "Cube");
+        Button btnLineOO = createToolbarButton("images/lineOO.png", "LineOO");
+
+
+        toolBar.getItems().addAll(btnPoint, btnLine, btnEllipse, btnRectangle, btnCube, btnLineOO);
 
         VBox menuAndToolbar = new VBox(menuBar, toolBar);
         layout.setTop(menuAndToolbar);
+
+        rectangle.setOnAction(actionEvent -> {
+            shapeEditor.startRectangleEditor(scene, drawingArea);
+            selection(rectangle, point, ellipse, line, lineOO, cube);
+        });
+        line.setOnAction(actionEvent -> {
+            shapeEditor.startLineEditor(scene, drawingArea);
+            selection(line, point, ellipse, rectangle, lineOO, cube);
+        });
+        point.setOnAction(actionEvent -> {
+            shapeEditor.startPointEditor(scene, drawingArea);
+            selection(point, line, ellipse, rectangle, lineOO, cube);
+        });
+        ellipse.setOnAction(actionEvent ->{
+            shapeEditor.startEllipseEditor(scene, drawingArea);
+            selection(ellipse, line, point, rectangle, lineOO, cube);
+        });
+        cube.setOnAction(actionEvent ->{
+            shapeEditor.startCubeEditor(scene, drawingArea);
+            selection(cube, ellipse, line, point, rectangle, lineOO);
+        });
+        lineOO.setOnAction(actionEvent ->{
+            shapeEditor.startLineOOEditor(scene, drawingArea);
+            selection(lineOO, ellipse, line, point, rectangle, cube);
+        });
+
+        btnRectangle.setOnAction(actionEvent -> shapeEditor.startRectangleEditor(scene, drawingArea));
+        btnLine.setOnAction(actionEvent -> shapeEditor.startLineEditor(scene, drawingArea));
+        btnPoint.setOnAction(actionEvent -> shapeEditor.startPointEditor(scene, drawingArea));
+        btnEllipse.setOnAction(actionEvent -> shapeEditor.startEllipseEditor(scene, drawingArea));
+        btnCube.setOnAction(actionEvent -> shapeEditor.startCubeEditor(scene, drawingArea));
+        btnLineOO.setOnAction(actionEvent -> shapeEditor.startLineOOEditor(scene, drawingArea));
 
         stage.setScene(scene);
         stage.setTitle("Lab4");
         stage.show();
     }
 
-    private MenuBar createMenuBar(MyEditor shapeEditor, Scene scene, Pane drawingArea) {
-        MenuBar menuBar = new MenuBar();
-
-        Menu file = new Menu("File");
-        Menu shapes = createShapesMenu(shapeEditor, scene, drawingArea);
-        Menu help = new Menu("Help");
-
-        menuBar.getMenus().addAll(file, shapes, help);
-
-        return menuBar;
+    private void selection(CheckMenuItem selectedItem, CheckMenuItem... others) {
+        selectedItem.setSelected(true);
+        for (CheckMenuItem item : others) {
+            item.setSelected(false);
+        }
     }
 
-    private Menu createShapesMenu(MyEditor shapeEditor, Scene scene, Pane drawingArea) {
-        Menu shapes = new Menu("Shapes");
-
-        MenuItem point = createMenuItem("Point", () -> shapeEditor.startPointEditor(scene, drawingArea));
-        MenuItem line = createMenuItem("Line", () -> shapeEditor.startLineEditor(scene, drawingArea));
-        MenuItem ellipse = createMenuItem("Ellipse", () -> shapeEditor.startEllipseEditor(scene, drawingArea));
-        MenuItem rectangle = createMenuItem("Rectangle", () -> shapeEditor.startRectangleEditor(scene, drawingArea));
-        MenuItem cube = createMenuItem("Cube", () -> shapeEditor.startCubeEditor(scene, drawingArea));
-        MenuItem lineOO = createMenuItem("LineOO", () -> shapeEditor.startLineOOEditor(scene, drawingArea));
-
-        shapes.getItems().addAll(point, line, ellipse, rectangle, cube, lineOO);
-
-        return shapes;
-    }
-
-    private MenuItem createMenuItem(String text, Runnable action) {
-        MenuItem menuItem = new MenuItem(text);
-        menuItem.setOnAction(event -> action.run());
-        return menuItem;
-    }
-
-    private ToolBar createToolBar(MyEditor shapeEditor, Scene scene, Pane drawingArea) {
-        ToolBar toolBar = new ToolBar();
-
-        toolBar.getItems().addAll(
-                createToolbarButton("images/point.png", "Point",
-                        () -> shapeEditor.startPointEditor(scene, drawingArea)),
-                createToolbarButton("images/line.png", "Line",
-                        () -> shapeEditor.startLineEditor(scene, drawingArea)),
-                createToolbarButton("images/ellipse.png", "Ellipse",
-                        () -> shapeEditor.startEllipseEditor(scene, drawingArea)),
-                createToolbarButton("images/rectangle.png", "Rectangle",
-                        () -> shapeEditor.startRectangleEditor(scene, drawingArea)),
-                createToolbarButton("images/cube.png", "Cube",
-                        () -> shapeEditor.startCubeEditor(scene, drawingArea)),
-                createToolbarButton("images/lineOO.png", "LineOO",
-                        () -> shapeEditor.startLineOOEditor(scene, drawingArea))
-        );
-
-        return toolBar;
-    }
-
-    private Button createToolbarButton(String imagePath, String tooltipText, Runnable action) {
+    private Button createToolbarButton(String imagePath, String tooltipText) {
         Image image = new Image(Objects.requireNonNull(getClass().getResourceAsStream(imagePath)));
         ImageView imageView = new ImageView(image);
 
@@ -101,8 +107,10 @@ public class Lab4 extends Application {
         Tooltip tooltip = new Tooltip(tooltipText);
         Tooltip.install(button, tooltip);
 
-        button.setOnAction(event -> action.run());
-
         return button;
+    }
+
+    public static void main(String[] args) {
+        launch();
     }
 }
