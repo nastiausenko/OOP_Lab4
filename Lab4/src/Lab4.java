@@ -55,36 +55,36 @@ public class Lab4 extends Application {
         layout.setTop(menuAndToolbar);
 
         rectangle.setOnAction(actionEvent -> {
-            shapeEditor.startEditor(scene, drawingArea, new RectangleShape(scene, drawingArea));
+            shapeEditor.startEditor(new RectangleShape(scene, drawingArea));
             selection(rectangle, point, ellipse, line, lineOO, cube);
         });
         line.setOnAction(actionEvent -> {
-            shapeEditor.startEditor(scene, drawingArea, new LineShape(scene, drawingArea));
+            shapeEditor.startEditor(new LineShape(scene, drawingArea));
             selection(line, point, ellipse, rectangle, lineOO, cube);
         });
         point.setOnAction(actionEvent -> {
-            shapeEditor.startEditor(scene, drawingArea, new PointShape(scene, drawingArea));
+            shapeEditor.startEditor(new PointShape(scene, drawingArea));
             selection(point, line, ellipse, rectangle, lineOO, cube);
         });
         ellipse.setOnAction(actionEvent ->{
-            shapeEditor.startEditor(scene, drawingArea, new EllipseShape(scene, drawingArea));
+            shapeEditor.startEditor(new EllipseShape(scene, drawingArea));
             selection(ellipse, line, point, rectangle, lineOO, cube);
         });
         cube.setOnAction(actionEvent ->{
-            shapeEditor.startEditor(scene, drawingArea, new CubeShape(scene, drawingArea));
+            shapeEditor.startEditor(new CubeShape(scene, drawingArea));
             selection(cube, ellipse, line, point, rectangle, lineOO);
         });
         lineOO.setOnAction(actionEvent ->{
-            shapeEditor.startEditor(scene, drawingArea, new LineOOShape(scene, drawingArea));
+            shapeEditor.startEditor(new LineOOShape(scene, drawingArea));
             selection(lineOO, ellipse, line, point, rectangle, cube);
         });
 
-        btnRectangle.setOnAction(actionEvent -> shapeEditor.startEditor(scene, drawingArea, new RectangleShape(scene, drawingArea)));
-        btnLine.setOnAction(actionEvent -> shapeEditor.startEditor(scene, drawingArea, new LineShape(scene, drawingArea)));
-        btnPoint.setOnAction(actionEvent -> shapeEditor.startEditor(scene, drawingArea, new PointShape(scene, drawingArea)));
-        btnEllipse.setOnAction(actionEvent -> shapeEditor.startEditor(scene, drawingArea, new EllipseShape(scene, drawingArea)));
-        btnCube.setOnAction(actionEvent -> shapeEditor.startEditor(scene, drawingArea, new CubeShape(scene, drawingArea)));
-        btnLineOO.setOnAction(actionEvent -> shapeEditor.startEditor(scene, drawingArea, new LineOOShape(scene, drawingArea)));
+        btnRectangle.setOnAction(actionEvent -> shapeEditor.startEditor(new RectangleShape(scene, drawingArea)));
+        btnLine.setOnAction(actionEvent -> shapeEditor.startEditor(new LineShape(scene, drawingArea)));
+        btnPoint.setOnAction(actionEvent -> shapeEditor.startEditor(new PointShape(scene, drawingArea)));
+        btnEllipse.setOnAction(actionEvent -> shapeEditor.startEditor(new EllipseShape(scene, drawingArea)));
+        btnCube.setOnAction(actionEvent -> shapeEditor.startEditor(new CubeShape(scene, drawingArea)));
+        btnLineOO.setOnAction(actionEvent -> shapeEditor.startEditor(new LineOOShape(scene, drawingArea)));
 
         stage.setScene(scene);
         stage.setTitle("Lab4");
