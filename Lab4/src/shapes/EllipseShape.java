@@ -22,7 +22,7 @@ public class EllipseShape extends Shapes implements Drawable {
 
         root.setOnMouseReleased(event -> {
             clear(currentEllipse);
-            currentEllipse.setFill(Color.LIGHTSKYBLUE);
+            currentEllipse.setFill(Color.LIGHTGRAY);
             currentEllipse = null;
         });
     }

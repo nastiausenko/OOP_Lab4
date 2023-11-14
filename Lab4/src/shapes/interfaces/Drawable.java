@@ -46,5 +46,4 @@ public interface Drawable {
             children.add(currentLine);
         }
     }
-
 }

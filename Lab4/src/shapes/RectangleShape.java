@@ -3,7 +3,6 @@ package shapes;
 import javafx.scene.Scene;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
-import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import shapes.interfaces.Drawable;
 
@@ -21,7 +20,6 @@ public class RectangleShape extends Shapes implements Drawable {
         root.setOnMouseDragged(event -> dragged(event, currentRectangle));
 
         root.setOnMouseReleased(event -> {
-                currentRectangle.setFill(Color.LIGHTGOLDENRODYELLOW);
                 clear(currentRectangle);
                 currentRectangle = null;
         });

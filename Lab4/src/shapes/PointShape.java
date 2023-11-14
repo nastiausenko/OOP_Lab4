@@ -8,7 +8,6 @@ import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Ellipse;
 
-
 public class PointShape extends Shapes {
     private Ellipse currentPoint;
 
